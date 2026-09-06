@@ -26,11 +26,7 @@
       "required": true
     }
   },
-  "addons": [
-    {
-      "plan": "postgresql:postgresql-starter-512"
-    }
-  ],
+  "addons": [],
   "formation": {
     "web": {
       "amount": 1,
