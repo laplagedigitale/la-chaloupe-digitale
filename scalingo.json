@@ -5,55 +5,25 @@
   "logo": "https://sovrium.com/logo.png",
   "website": "https://sovrium.com/apps/intranet",
   "env": {
-    "BUILDPACK_URL": {
-      "description": "Sovrium buildpack — downloads the released, checksum-verified sovrium binary and boots the app config (Scalingo does not build Dockerfiles).",
-      "value": "https://github.com/sovrium/scalingo-buildpack",
-      "required": true
-    },
-    "SOVRIUM_ENCRYPTION_KEY": {
-      "description": "Master key for encrypting stored credentials at rest (AES-256-GCM). Optional — the app generates and persists one on first start if unset. Keep it set here: the container filesystem is ephemeral, so a generated key would not survive a restart. Review apps get their own key: their database starts empty, so there is nothing encrypted with the parent key to read.",
-      "generator": "secret",
-      "required": false
-    },
     "BASE_URL": {
-      "description": "Public URL of this app (e.g. https://my-intranet.osc-fr1.scalingo.io). Used for auth callbacks and absolute links. The url generator makes each review app get its own address instead of inheriting the parent app's.",
+      "description": "Public URL of this app. The url generator gives each review app its own address instead of inheriting the parent app's.",
       "generator": "url",
       "required": true
     },
     "NODE_ENV": {
-      "description": "Runtime mode. Matches the parent app so review apps behave like production.",
+      "description": "Runtime mode. Matches the parent app.",
       "value": "production",
-      "required": false
+      "required": true
+    },
+    "SOVRIUM_ENCRYPTION_KEY": {
+      "description": "Master key for encrypting stored credentials at rest (AES-256-GCM). Review apps get their own key: their database starts empty, so there is nothing encrypted with the parent key to read.",
+      "generator": "secret",
+      "required": true
     },
     "TRUSTED_PROXY_HOPS": {
       "description": "Number of reverse proxies in front of the app, so client IPs and the request scheme are read from the right X-Forwarded-* entry. Scalingo puts one hop in front of every app, review apps included.",
       "value": "1",
-      "required": false
-    },
-    "AUTH_ADMIN_EMAIL": {
-      "description": "Bootstrap the first admin account on first start (optional — you can also run `sovrium admin create <email>` later).",
-      "required": false
-    },
-    "AUTH_ADMIN_PASSWORD": {
-      "description": "Password for the bootstrap admin account (used with AUTH_ADMIN_EMAIL).",
-      "required": false
-    },
-    "SMTP_HOST": {
-      "description": "SMTP server hostname for outbound email (sign-in links, notifications). Leave empty to run with email disabled.",
-      "required": false
-    },
-    "SMTP_PORT": {
-      "description": "SMTP server port (e.g. 587).",
-      "value": "587",
-      "required": false
-    },
-    "SMTP_USER": {
-      "description": "SMTP username.",
-      "required": false
-    },
-    "SMTP_PASS": {
-      "description": "SMTP password.",
-      "required": false
+      "required": true
     }
   },
   "addons": [
