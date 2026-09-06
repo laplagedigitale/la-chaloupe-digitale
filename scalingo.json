@@ -16,7 +16,8 @@
       "required": false
     },
     "BASE_URL": {
-      "description": "Public URL of this app (e.g. https://my-intranet.osc-fr1.scalingo.io). Used for auth callbacks and absolute links.",
+      "description": "Public URL of this app (e.g. https://my-intranet.osc-fr1.scalingo.io). Used for auth callbacks and absolute links. The url generator makes each review app get its own address instead of inheriting the parent app's.",
+      "generator": "url",
       "required": true
     },
     "AUTH_ADMIN_EMAIL": {
