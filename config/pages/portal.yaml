@@ -1,0 +1,177 @@
+name: portal
+path: /portal
+access:
+  require: authenticated
+  redirectTo: /sign-in
+meta:
+  title: Intranet home
+  description: Announcements, people, and shared resources for the whole company
+components:
+  - type: container
+    element: section
+    props:
+      className: py-10 px-6
+      style:
+        backgroundColor: var(--color-background-subtle)
+    children:
+      - type: container
+        props:
+          className: max-w-5xl mx-auto
+        children:
+          - type: text
+            element: h1
+            props:
+              className: text-4xl font-bold mb-2
+              style:
+                color: var(--color-foreground)
+            content: Intranet
+          - type: text
+            element: p
+            props:
+              className: text-lg mb-8
+              style:
+                color: var(--color-foreground-muted)
+            content: Catch up on announcements, find colleagues, and reach the tools you use every day.
+
+          # Employee section — visible to any authenticated user
+          - type: container
+            props:
+              className: p-6 rounded-xl border mb-6
+              style:
+                backgroundColor: var(--color-card)
+                borderColor: var(--color-border)
+            visibility:
+              when: authenticated
+            children:
+              - type: text
+                element: h2
+                props:
+                  className: text-xl font-semibold mb-3
+                content: Latest announcements
+              - type: text
+                element: p
+                props:
+                  className: mb-4
+                  style:
+                    color: var(--color-foreground-muted)
+                content: What has been published across the company.
+              - type: data-table
+                dataSource:
+                  table: posts
+                  sort:
+                    - field: created_at
+                      direction: desc
+                columns:
+                  - field: title
+                    label: Title
+                    sortable: true
+                  - field: status
+                    label: Status
+                    sortable: true
+                  - field: author
+                    label: Author
+                pagination:
+                  pageSize: 10
+
+          # Shared resources — quick links every employee needs
+          - type: container
+            props:
+              className: p-6 rounded-xl border mb-6
+              style:
+                backgroundColor: var(--color-card)
+                borderColor: var(--color-border)
+            visibility:
+              when: authenticated
+            children:
+              - type: text
+                element: h2
+                props:
+                  className: text-xl font-semibold mb-3
+                content: Shared resources
+              - type: text
+                element: p
+                props:
+                  className: mb-4
+                  style:
+                    color: var(--color-foreground-muted)
+                content: Tools, policies, and guides — one bookmark for everything.
+              - type: data-table
+                dataSource:
+                  table: resources
+                  sort:
+                    - field: added_at
+                      direction: desc
+                columns:
+                  - field: title
+                    label: Title
+                    sortable: true
+                  - field: category
+                    label: Category
+                    sortable: true
+                  - field: url
+                    label: Link
+                pagination:
+                  pageSize: 10
+
+          # Manager tools — role-gated, only managers and admins see it
+          - type: container
+            props:
+              className: p-6 rounded-xl border mb-6
+              style:
+                backgroundColor: var(--color-warning-subtle)
+                borderColor: var(--color-warning-border)
+            visibility:
+              roles:
+                - admin
+                - managers
+            children:
+              - type: text
+                element: h2
+                props:
+                  className: text-xl font-semibold mb-3
+                content: Manager tools
+              - type: text
+                element: p
+                props:
+                  className: mb-4
+                  style:
+                    color: var(--color-warning-strong)
+                content: Publish announcements, manage the directory, and curate resources. Only managers and admins see this section.
+              - type: data-table
+                dataSource:
+                  table: members
+                  sort:
+                    - field: joined_at
+                      direction: desc
+                columns:
+                  - field: name
+                    label: Name
+                    sortable: true
+                  - field: email
+                    label: Email
+                  - field: location
+                    label: Location
+                  - field: joined_at
+                    label: Joined
+                    sortable: true
+                pagination:
+                  pageSize: 20
+
+          # Sign-out button at the bottom
+          - type: container
+            props:
+              className: flex justify-end mt-8
+            children:
+              - type: button
+                props:
+                  className: px-4 py-2 rounded-md border text-sm font-medium
+                  style:
+                    color: var(--color-foreground)
+                    borderColor: var(--color-border)
+                    backgroundColor: var(--color-card)
+                content: Sign out
+                action:
+                  type: auth
+                  method: logout
+                  onSuccess:
+                    navigate: /

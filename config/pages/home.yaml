@@ -1,0 +1,137 @@
+name: home
+path: /
+meta:
+  title: Company Intranet
+  description: A company intranet — a public welcome page plus a private employee hub
+components:
+  - type: container
+    element: section
+    props:
+      className: py-20 px-6
+      style:
+        backgroundColor: var(--color-background-subtle)
+    children:
+      - type: container
+        props:
+          className: max-w-4xl mx-auto text-center
+        children:
+          - type: text
+            element: h1
+            props:
+              className: text-5xl font-bold mb-6
+              style:
+                color: var(--color-foreground)
+            content: One place for the whole company
+          - type: text
+            element: p
+            props:
+              className: text-xl mb-8
+              style:
+                color: var(--color-foreground-muted)
+            content: A public welcome page for everyone. A private hub where the team finds announcements, colleagues, and shared resources.
+          - type: container
+            props:
+              className: flex gap-4 justify-center
+            children:
+              - type: link
+                props:
+                  href: /sign-in
+                  className: inline-block px-6 py-3 rounded-lg font-medium
+                  style:
+                    backgroundColor: var(--color-primary)
+                    # Stays a literal: this is text ON a filled primary button,
+                    # so it must contrast with `primary` and not with the page
+                    # background. `foreground-inverse` would be the token for it,
+                    # but it is a neutral role that flips with the colour scheme
+                    # — and this fill does not flip, so the neutral would go dark
+                    # on cyan in dark mode. The only remaining hex in this
+                    # template, and it earns its place.
+                    color: '#ffffff'
+                content: Sign in to the intranet
+              - type: link
+                props:
+                  href: '#features'
+                  className: inline-block px-6 py-3 rounded-lg font-medium border
+                  style:
+                    color: var(--color-foreground)
+                    borderColor: var(--color-border)
+                content: Learn more
+
+  - type: container
+    element: section
+    props:
+      id: features
+      className: py-16 px-6
+    children:
+      - type: container
+        props:
+          className: max-w-5xl mx-auto
+        children:
+          - type: text
+            element: h2
+            props:
+              className: text-3xl font-bold mb-10 text-center
+              style:
+                color: var(--color-foreground)
+            content: What's inside
+          - type: container
+            props:
+              style:
+                display: grid
+                gridTemplateColumns: repeat(auto-fit, minmax(260px, 1fr))
+                gap: 1.5rem
+            children:
+              - type: container
+                props:
+                  className: p-6 rounded-xl border
+                  style:
+                    backgroundColor: var(--color-card)
+                    borderColor: var(--color-border)
+                children:
+                  - type: text
+                    element: h3
+                    props:
+                      className: text-lg font-semibold mb-2
+                    content: People directory
+                  - type: text
+                    element: p
+                    props:
+                      style:
+                        color: var(--color-foreground-muted)
+                    content: Find colleagues across teams and see what they are working on.
+              - type: container
+                props:
+                  className: p-6 rounded-xl border
+                  style:
+                    backgroundColor: var(--color-card)
+                    borderColor: var(--color-border)
+                children:
+                  - type: text
+                    element: h3
+                    props:
+                      className: text-lg font-semibold mb-2
+                    content: Announcements
+                  - type: text
+                    element: p
+                    props:
+                      style:
+                        color: var(--color-foreground-muted)
+                    content: Company news in one feed — read the latest and publish your own once you sign in.
+              - type: container
+                props:
+                  className: p-6 rounded-xl border
+                  style:
+                    backgroundColor: var(--color-card)
+                    borderColor: var(--color-border)
+                children:
+                  - type: text
+                    element: h3
+                    props:
+                      className: text-lg font-semibold mb-2
+                    content: Manager tools
+                  - type: text
+                    element: p
+                    props:
+                      style:
+                        color: var(--color-foreground-muted)
+                    content: Managers get extra tools to publish announcements and keep the directory current.
