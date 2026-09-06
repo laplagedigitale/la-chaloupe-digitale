@@ -11,13 +11,24 @@
       "required": true
     },
     "SOVRIUM_ENCRYPTION_KEY": {
-      "description": "Master key for encrypting stored credentials at rest (AES-256-GCM). Optional — the app generates and persists one on first start if unset. Keep it set here: the container filesystem is ephemeral, so a generated key would not survive a restart.",
+      "description": "Master key for encrypting stored credentials at rest (AES-256-GCM). Optional — the app generates and persists one on first start if unset. Keep it set here: the container filesystem is ephemeral, so a generated key would not survive a restart. Review apps get their own key: their database starts empty, so there is nothing encrypted with the parent key to read.",
       "generator": "secret",
       "required": false
     },
     "BASE_URL": {
-      "description": "Public URL of this app (e.g. https://my-intranet.osc-fr1.scalingo.io). Used for auth callbacks and absolute links.",
+      "description": "Public URL of this app (e.g. https://my-intranet.osc-fr1.scalingo.io). Used for auth callbacks and absolute links. The url generator makes each review app get its own address instead of inheriting the parent app's.",
+      "generator": "url",
       "required": true
+    },
+    "NODE_ENV": {
+      "description": "Runtime mode. Matches the parent app so review apps behave like production.",
+      "value": "production",
+      "required": false
+    },
+    "TRUSTED_PROXY_HOPS": {
+      "description": "Number of reverse proxies in front of the app, so client IPs and the request scheme are read from the right X-Forwarded-* entry. Scalingo puts one hop in front of every app, review apps included.",
+      "value": "1",
+      "required": false
     },
     "AUTH_ADMIN_EMAIL": {
       "description": "Bootstrap the first admin account on first start (optional — you can also run `sovrium admin create <email>` later).",
