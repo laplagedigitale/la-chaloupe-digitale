@@ -1,7 +1,7 @@
 name: home
 path: /
 meta:
-  title: Company Intranet
+  title: La Plage Digitale
   description: A company intranet — a public welcome page plus a private employee hub
 components:
   - type: container
@@ -21,7 +21,7 @@ components:
               className: text-5xl font-bold mb-6
               style:
                 color: var(--color-foreground)
-            content: One place for the whole company
+            content: La Plage Digitale
           - type: text
             element: p
             props:
